@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CEF18043-B32A-4079-A497-F4E182250A44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedWaytoR", "src\MedWaytoR\MedWaytoR.csproj", "{63EB62FB-A4CE-4D1E-8CDC-70E9BCD59D86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedWaytoR.Contracts", "src\MedWaytoR.Contracts\MedWaytoR.Contracts.csproj", "{8E45183C-EEDE-4513-A8CD-540777F4C487}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63EB62FB-A4CE-4D1E-8CDC-70E9BCD59D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63EB62FB-A4CE-4D1E-8CDC-70E9BCD59D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63EB62FB-A4CE-4D1E-8CDC-70E9BCD59D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63EB62FB-A4CE-4D1E-8CDC-70E9BCD59D86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E45183C-EEDE-4513-A8CD-540777F4C487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E45183C-EEDE-4513-A8CD-540777F4C487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E45183C-EEDE-4513-A8CD-540777F4C487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E45183C-EEDE-4513-A8CD-540777F4C487}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{63EB62FB-A4CE-4D1E-8CDC-70E9BCD59D86} = {CEF18043-B32A-4079-A497-F4E182250A44}
+		{8E45183C-EEDE-4513-A8CD-540777F4C487} = {CEF18043-B32A-4079-A497-F4E182250A44}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+
+    <Authors>Mohamed Wissem Rouin</Authors>
+    <Description>Contracts package for MedWaytoR.</Description>
+    <Copyright>Copyright 🄯 Mohamed Wissem Rouin 2025</Copyright>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+    <PackageTags>mediator;request;response;queries;commands;publisher;subscriber;notifications</PackageTags>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>MedWaytoR</RootNamespace>
+
+    <TargetFramework>net8.0</TargetFramework>
+    <Features>strict</Features>
+    <Deterministic>true</Deterministic>
+    <AssemblyName>MWR_MDTR_CNTR</AssemblyName>
+  </PropertyGroup>
+
+</Project>
