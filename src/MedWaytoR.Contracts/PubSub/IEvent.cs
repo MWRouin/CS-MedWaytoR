@@ -1,3 +1,3 @@
-namespace MedWaytoR.PubSub;
+namespace MWR.MedWaytoR.PubSub;
 
 public interface IEvent;

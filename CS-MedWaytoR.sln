@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedWaytoR", "src\MedWaytoR\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedWaytoR.Contracts", "src\MedWaytoR.Contracts\MedWaytoR.Contracts.csproj", "{8E45183C-EEDE-4513-A8CD-540777F4C487}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedWaytoR.UnitTest", "src\MedWaytoR.UnitTest\MedWaytoR.UnitTest.csproj", "{A29AC696-2601-419B-AD08-623DB7E39471}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{8E45183C-EEDE-4513-A8CD-540777F4C487}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E45183C-EEDE-4513-A8CD-540777F4C487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E45183C-EEDE-4513-A8CD-540777F4C487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29AC696-2601-419B-AD08-623DB7E39471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29AC696-2601-419B-AD08-623DB7E39471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29AC696-2601-419B-AD08-623DB7E39471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29AC696-2601-419B-AD08-623DB7E39471}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{63EB62FB-A4CE-4D1E-8CDC-70E9BCD59D86} = {CEF18043-B32A-4079-A497-F4E182250A44}
 		{8E45183C-EEDE-4513-A8CD-540777F4C487} = {CEF18043-B32A-4079-A497-F4E182250A44}
+		{A29AC696-2601-419B-AD08-623DB7E39471} = {CEF18043-B32A-4079-A497-F4E182250A44}
 	EndGlobalSection
 EndGlobal

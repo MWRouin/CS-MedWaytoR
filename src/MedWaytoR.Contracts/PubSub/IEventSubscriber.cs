@@ -1,4 +1,4 @@
-namespace MedWaytoR.PubSub;
+namespace MWR.MedWaytoR.PubSub;
 
 public interface IEventSubscriber<in TEvent> where TEvent : IEvent
 {

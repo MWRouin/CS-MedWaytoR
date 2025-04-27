@@ -13,12 +13,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>MedWaytoR</RootNamespace>
+    <RootNamespace>MWR.MedWaytoR</RootNamespace>
 
     <!-- Compilation config -->
     <Features>strict</Features>
     <Deterministic>true</Deterministic>
     <AssemblyName>MWR_MDTR_CNTR</AssemblyName>
+
   </PropertyGroup>
 
 </Project>

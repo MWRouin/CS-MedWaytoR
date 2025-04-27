@@ -1,3 +1,3 @@
-namespace MedWaytoR.RequestResponse;
+namespace MWR.MedWaytoR.RequestResponse;
 
-public interface IRequest<TResponse>;
+public interface IRequest<out TResponse>;

@@ -1,13 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\MedWaytoR.Contracts\MedWaytoR.Contracts.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
+
+    <!-- Project Metadata -->
+    <Authors>Mohamed Wissem Rouin</Authors>
+    <Description>Implementation package for MedWaytoR.</Description>
+    <Copyright>Copyright 🄯 Mohamed Wissem Rouin 2025</Copyright>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+    <PackageTags>mediator;request;response;queries;commands;publisher;subscriber;notifications</PackageTags>
+
+    <!-- Language config -->
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>MWR.MedWaytoR</RootNamespace>
+
+    <!-- Compilation config -->
+    <Features>strict</Features>
+    <Deterministic>true</Deterministic>
+    <AssemblyName>MWR_MDTR_IMPL</AssemblyName>
+
   </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\MedWaytoR.Contracts\MedWaytoR.Contracts.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
+  </ItemGroup>
 
 </Project>
