@@ -5,9 +5,9 @@ namespace MWR.MedWaytoR.PubSubImplementation;
 
 public interface ISubscribersScanner
 {
-    Task<IEnumerable<Type>> ScanForEventType<TEvent>() where TEvent : IEvent;
+    IEnumerable<Type> FindSubscribersForEventType<TEvent>() where TEvent : IEvent;
 
-    Task<IEnumerable<Type>> ScanForEventType(Type evenType);
+    IEnumerable<Type> FindSubscribersForEventType(Type evenType);
 
-    Task<IDictionary<Type, IEnumerable<Type>>> ScanForAllEventTypes();
+    IDictionary<Type, IEnumerable<Type>> FindAllEventSubscribers();
 }

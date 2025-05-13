@@ -3,9 +3,9 @@ using MWR.MedWaytoR.PubSub;
 
 namespace MWR.MedWaytoR.PubSubImplementation;
 
-public class EventPublisher : IEventPublisher
+internal class ConcreteEventPublisher : IEventPublisher
 {
-    internal EventPublisher(EventExecutorsFactory eventExecutorsFactory)
+    internal ConcreteEventPublisher(EventExecutorsFactory eventExecutorsFactory)
     {
         _eventExecutorsFactory = eventExecutorsFactory;
     }
