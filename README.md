@@ -4,7 +4,7 @@
             <source media="(prefers-color-scheme: dark)" srcset="MedWaytoR.darklogo.png">
             <source media="(prefers-color-scheme: light)" srcset="MedWaytoR.lightlogo.png">
         Commented out for now -->
-        <img alt="MedWaytoR" src="logo/MedWaytoR.logo2.png" style="max-width:350px;width:100%">
+        <img alt="MedWaytoR" src="logo/MedWaytoR.logo2.png" width="400">
     </picture>
 </h1>
 
