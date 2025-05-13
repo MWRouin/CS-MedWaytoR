@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace MWR.MedWaytoR;
 
 internal static class LinqExtensions

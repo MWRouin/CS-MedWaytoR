@@ -21,8 +21,11 @@ internal class EventExecutor<TEvent>(
         {
             ExecutionType.Sequential => eventHandlers.RunAllInSequence(ct),
             ExecutionType.Parallel => eventHandlers.RunAllInParallel(),
-            _ => throw new ArgumentOutOfRangeException(nameof(executionType), executionType, "invalid execution type")
+            _ => throw new InvalidOperationException(
+                $"""
+                 Execution type {executionType} is not supported.
+                 Use {nameof(ExecutionType.Sequential)} or {nameof(ExecutionType.Parallel)}.
+                 """)
         };
     }
 }
-
