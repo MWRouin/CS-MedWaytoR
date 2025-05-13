@@ -4,7 +4,7 @@ using MWR.MedWaytoR.PubSub;
 
 namespace MWR.MedWaytoR.PubSubImplementation;
 
-internal class SubscribersScanner(IEnumerable<Assembly> assemblies) : ISubscribersScanner
+internal class PubSubScanner(IEnumerable<Assembly> assemblies) : ISubscribersScanner
 {
     private IEnumerable<TypeInfo> DefinedTypes => assemblies.SelectMany(asm => asm.DefinedTypes);
 

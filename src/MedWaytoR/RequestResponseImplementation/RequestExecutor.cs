@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MWR.MedWaytoR.RequestResponse;
 
-namespace MWR.MedWaytoR.RequestImplementation;
+namespace MWR.MedWaytoR.RequestResponseImplementation;
 
 public class RequestExecutor<TRequest, TInternalResponse>(
     IServiceProvider serviceProvider) : IRequestExecutor

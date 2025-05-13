@@ -2,9 +2,9 @@ using System.Reflection;
 using MWR.MedWaytoR.Helpers;
 using MWR.MedWaytoR.RequestResponse;
 
-namespace MWR.MedWaytoR.RequestImplementation;
+namespace MWR.MedWaytoR.RequestResponseImplementation;
 
-internal class RequestHandlersScanner(IEnumerable<Assembly> assemblies) : IRequestHandlersScanner
+internal class RequestResponseScanner(IEnumerable<Assembly> assemblies) : IRequestHandlersScanner
 {
     private IEnumerable<TypeInfo> DefinedTypes => assemblies.SelectMany(asm => asm.DefinedTypes);
 

@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using MWR.MedWaytoR.RequestResponse;
 
-namespace MWR.MedWaytoR.RequestImplementation;
+namespace MWR.MedWaytoR.RequestResponseImplementation;
 
 internal class ConcreteRequestDispatcher : IRequestDispatcher
 {
