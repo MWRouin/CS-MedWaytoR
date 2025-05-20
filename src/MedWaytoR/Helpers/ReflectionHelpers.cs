@@ -4,7 +4,7 @@ internal static class ReflectionHelpers
 {
     public static bool IsPublicConcreteClass(this Type type)
     {
-        return type is { IsAbstract: false, IsInterface: false, IsPublic: true };
+        return type is { IsAbstract: false, IsInterface: false, IsPublic: true, IsGenericTypeDefinition: false };
     }
 
     public static Func<Type, bool> GenericTypeEqualityPredicate(this Type genericTypeDefinition)
