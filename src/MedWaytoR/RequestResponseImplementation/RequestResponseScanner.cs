@@ -4,7 +4,7 @@ using MWR.MedWaytoR.RequestResponse;
 
 namespace MWR.MedWaytoR.RequestResponseImplementation;
 
-internal class RequestResponseScanner(IEnumerable<Assembly> assemblies) : IRequestHandlersScanner
+internal class RequestResponseScanner(IEnumerable<Assembly> assemblies) : IRequestResponseScanner
 {
     private IEnumerable<TypeInfo> DefinedTypes => assemblies.SelectMany(asm => asm.DefinedTypes);
 
@@ -33,16 +33,16 @@ internal class RequestResponseScanner(IEnumerable<Assembly> assemblies) : IReque
         return (handlerType, pipeTypes);
     }
 
-    public IDictionary<Type, (Type HandlerType, IEnumerable<Type> PipeTypes)> FindAllRequestHandlers()
+    public IDictionary<Type, (Type HandlerType, IEnumerable<Type> PipeTypes)> FindAllHandlersGroupedByRequestType()
     {
         var handlerTypes = DefinedTypes
             .Where(Helpers.IsRequestHandlerPredicate())
-            .GroupBy(Helpers.GetRequestTypeForRequestHandlerFunc())
+            .GroupBy(Helpers.GetRequestTypeForRequestHandler)
             .ToDictionary(grouping => grouping.Key, grouping => grouping.First());
 
         var pipeTypes = DefinedTypes
             .Where(Helpers.IsReqResPipePredicate())
-            .GroupBy(Helpers.GetRequestTypeForReqResPipeFunc())
+            .GroupBy(Helpers.GetRequestTypeForReqResPipe)
             .Where(grouping => handlerTypes.ContainsKey(grouping.Key))
             .ToDictionary(grouping => grouping.Key, IEnumerable<Type> (grouping) => grouping);
 
@@ -50,40 +50,68 @@ internal class RequestResponseScanner(IEnumerable<Assembly> assemblies) : IReque
                 KeyValuePair.Create(keyValuePair.Key, (keyValuePair.Value, pipeTypes[keyValuePair.Key])))
             .ToDictionary();
     }
+
+    public IDictionary<Type, Type> FindAllHandlersGroupedByInterfaceType()
+    {
+        return DefinedTypes
+            .Where(Helpers.IsRequestHandlerPredicate())
+            .GroupBy(Helpers.GetInterfaceTypeForRequestHandler)
+            .ToDictionary(grouping => grouping.Key, grouping => grouping.First());
+    }
+
+    public IDictionary<Type, IEnumerable<Type>> FindAllPipesGroupedByInterfaceType()
+    {
+        return  DefinedTypes
+            .Where(Helpers.IsReqResPipePredicate())
+            .GroupBy(Helpers.GetInterfaceTypeForReqResPipe)
+            .ToDictionary(grouping => grouping.Key, IEnumerable<Type> (grouping) => grouping);
+    }
 }
 
 file static class Helpers
 {
-    private static readonly Type RequestHandlerType = typeof(IRequestHandler<,>);
+    private static readonly Type GenericRequestHandlerType = typeof(IRequestHandler<,>);
 
-    private static readonly Type RequestResponsePipeType = typeof(IRequestResponsePipe<,>);
+    private static readonly Type GenericRequestResponsePipeType = typeof(IRequestResponsePipe<,>);
 
-    public static Func<Type, Type> GetRequestTypeForRequestHandlerFunc()
+    public static Type GetRequestTypeForRequestHandler(Type requestHandlerType)
     {
-        return requestHandlerType => requestHandlerType.GetInterfaces()
-            .First(RequestHandlerType.GenericTypeEqualityPredicate())
+        return requestHandlerType.GetInterfaces()
+            .First(GenericRequestHandlerType.GenericTypeEqualityPredicate())
             .GetGenericArguments()[0];
     }
 
-    public static Func<Type, Type> GetRequestTypeForReqResPipeFunc()
+    public static Type GetInterfaceTypeForRequestHandler(Type requestHandlerType)
     {
-        return requestHandlerType => requestHandlerType.GetInterfaces()
-            .First(RequestResponsePipeType.GenericTypeEqualityPredicate())
+        return requestHandlerType.GetInterfaces()
+            .First(GenericRequestHandlerType.GenericTypeEqualityPredicate());
+    }
+
+    public static Type GetRequestTypeForReqResPipe(Type requestResponsePipeType)
+    {
+        return requestResponsePipeType.GetInterfaces()
+            .First(GenericRequestResponsePipeType.GenericTypeEqualityPredicate())
             .GetGenericArguments()[0];
+    }
+
+    public static Type GetInterfaceTypeForReqResPipe(Type requestResponsePipeType)
+    {
+        return requestResponsePipeType.GetInterfaces()
+            .First(GenericRequestResponsePipeType.GenericTypeEqualityPredicate());
     }
 
     public static Func<Type, bool> IsRequestHandlerPredicate()
     {
         return clsType => clsType.IsPublicConcreteClass() &&
                           clsType.GetInterfaces()
-                              .Any(RequestHandlerType.GenericTypeEqualityPredicate());
+                              .Any(GenericRequestHandlerType.GenericTypeEqualityPredicate());
     }
 
     public static Func<Type, bool> IsRequestHandlerPredicate(Type requestType, Type responseType)
     {
         return clsType => clsType.IsPublicConcreteClass() &&
                           clsType.GetInterfaces()
-                              .Any(RequestHandlerType.GenericTypeEqualityPredicate(requestType, responseType));
+                              .Any(GenericRequestHandlerType.GenericTypeEqualityPredicate(requestType, responseType));
     }
 
     public static Func<Type, bool> IsReqResPipePredicate()
@@ -91,7 +119,7 @@ file static class Helpers
         return clsType =>
             clsType.IsPublicConcreteClass() &&
             clsType.GetInterfaces()
-                .Any(RequestResponsePipeType.GenericTypeEqualityPredicate());
+                .Any(GenericRequestResponsePipeType.GenericTypeEqualityPredicate());
     }
 
     public static Func<Type, bool> IsReqResPipePredicate(Type requestType, Type responseType)
@@ -99,6 +127,6 @@ file static class Helpers
         return clsType =>
             clsType.IsPublicConcreteClass() &&
             clsType.GetInterfaces()
-                .Any(RequestResponsePipeType.GenericTypeEqualityPredicate(requestType, responseType));
+                .Any(GenericRequestResponsePipeType.GenericTypeEqualityPredicate(requestType, responseType));
     }
 }
