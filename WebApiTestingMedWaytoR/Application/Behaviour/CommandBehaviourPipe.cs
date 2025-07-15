@@ -1,9 +1,9 @@
 using MWR.MedWaytoR.PubSub;
 using MWR.MedWaytoR.RequestResponse;
-using WebApiMedWaytor.Application.Abstract;
-using WebApiMedWaytor.Infrastructure;
+using WebApiMedWaytoR.Application.Abstract;
+using WebApiMedWaytoR.Infrastructure;
 
-namespace WebApiMedWaytor.Application.Behaviour;
+namespace WebApiMedWaytoR.Application.Behaviour;
 
 public class CommandBehaviourPipe<TIn, TOut>(
     IEventPublisher eventPublisher,

@@ -1,8 +1,8 @@
-using WebApiMedWaytor.Domain.Abstraction;
-using WebApiMedWaytor.Domain.Events;
-using WebApiMedWaytor.Extentions;
+using WebApiMedWaytoR.Domain.Abstraction;
+using WebApiMedWaytoR.Domain.Events;
+using WebApiMedWaytoR.Extentions;
 
-namespace WebApiMedWaytor.Domain;
+namespace WebApiMedWaytoR.Domain;
 
 public class Product : IEntity, ICopy<Product>
 {

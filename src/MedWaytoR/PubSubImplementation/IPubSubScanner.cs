@@ -1,4 +1,3 @@
-using System.Collections;
 using MWR.MedWaytoR.PubSub;
 
 namespace MWR.MedWaytoR.PubSubImplementation;

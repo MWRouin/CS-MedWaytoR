@@ -1,6 +1,6 @@
-using WebApiMedWaytor.Extentions;
+using WebApiMedWaytoR.Extentions;
 
-namespace WebApiMedWaytor.Domain.Abstraction;
+namespace WebApiMedWaytoR.Domain.Abstraction;
 
 public interface IEntity : ICopy
 {

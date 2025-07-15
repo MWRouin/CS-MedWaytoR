@@ -1,32 +1,36 @@
+using MWR.MedWaytoR.Helpers;
 using MWR.MedWaytoR.PubSub;
 
 namespace MWR.MedWaytoR.PubSubImplementation;
 
-internal class EventExecutorsFactory(IServiceProvider serviceProvider)
+internal static class EventExecutorsFactory
 {
-    private ExecutionType _executionType = ExecutionType.Sequential;
+    // TODO: Get the required service provider instance from the scope
 
-    public IEventExecutor Create(IEvent @event)
+    /*private readonly Func<IEnumerable<Func<Task>>, CancellationToken, Task> _handlersExecutor =
+        executionType switch
+        {
+            ExecutionType.Sequential => (handlers, ct) => handlers.RunAllInSequence(ct),
+            ExecutionType.Parallel => (handlers, _) => handlers.RunAllInParallel(),
+            _ => throw new InvalidOperationException(
+                $"""
+                 Unsupported execution type: {executionType}.
+                 Expected values: {ExecutionType.Sequential}, {ExecutionType.Parallel}.
+                 """)
+        };*/
+
+    public static IEventExecutor CreateFor(IEvent @event)
     {
         var tEvent = @event.GetType();
 
-        var tExecutor = typeof(EventExecutor<>).MakeGenericType(tEvent);
-
-        var constructor = tExecutor.GetConstructors().Single();
-
-        return (IEventExecutor)constructor.Invoke([_executionType, serviceProvider]);
+        return CreateFor(tEvent);
     }
 
-    public void SetExecutionType(ExecutionType executionType)
+    public static IEventExecutor CreateFor(Type eventType)
     {
-        if (Enum.IsDefined(typeof(ExecutionType), executionType))
-            throw new ArgumentOutOfRangeException(nameof(executionType));
-        _executionType = executionType;
-    }
-}
+        var executorType = typeof(EventExecutor<>).MakeGenericType(eventType);
 
-internal enum ExecutionType
-{
-    Sequential,
-    Parallel
+        return (IEventExecutor)(Activator.CreateInstance(executorType) ??
+                                MedWaytoRException.ThrowFailedToCreateInstanceOf(executorType));
+    }
 }

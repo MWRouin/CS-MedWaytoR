@@ -1,8 +1,8 @@
-using WebApiMedWaytor.Application.Abstract;
-using WebApiMedWaytor.Domain;
-using WebApiMedWaytor.DTOs;
+using WebApiMedWaytoR.Application.Abstract;
+using WebApiMedWaytoR.Domain;
+using WebApiMedWaytoR.DTOs.Models;
 
-namespace WebApiMedWaytor.Application.CategoriesApp.Queries;
+namespace WebApiMedWaytoR.Application.CategoriesApp.Queries;
 
 public record GetCategoryByIdQuery(Guid CategoryId) : IQuery<CategoryDto?>;
 

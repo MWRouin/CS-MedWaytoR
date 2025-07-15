@@ -3,21 +3,25 @@ using MWR.MedWaytoR.RequestResponse;
 
 namespace MWR.MedWaytoR.RequestResponseImplementation;
 
-internal class ConcreteRequestDispatcher : IRequestDispatcher
+internal class ConcreteRequestDispatcher(IServiceProvider serviceProvider) : IRequestDispatcher
 {
-    internal ConcreteRequestDispatcher(RequestExecutorsFactory requestExecutorsFactory)
-    {
-        _requestExecutorsFactory = requestExecutorsFactory;
-    }
-
-    private readonly RequestExecutorsFactory _requestExecutorsFactory;
-
-    private readonly ConcurrentDictionary<Type, IRequestExecutor> _requestExecutors = [];
+    private static readonly ConcurrentDictionary<Type, IRequestExecutor> RequestExecutors = [];
 
     public Task<TResponse> DispatchAsync<TResponse>(IRequest<TResponse> request, CancellationToken ct = default)
     {
-        var executor = _requestExecutors.GetOrAdd(request.GetType(), _requestExecutorsFactory.Create(request));
+        ArgumentNullException.ThrowIfNull(request);
 
-        return executor.Execute(request, ct);
+        var executor = GetExecutorFor(request);
+
+        return executor.Execute(request, serviceProvider, ct);
+    }
+
+    private static IRequestExecutor<TResponse> GetExecutorFor<TResponse>(IRequest<TResponse> request)
+    {
+        var requestType = request.GetType();
+
+        var executor = RequestExecutors.GetOrAdd(requestType, RequestExecutorsFactory.CreateFor);
+
+        return (IRequestExecutor<TResponse>)executor;
     }
 }

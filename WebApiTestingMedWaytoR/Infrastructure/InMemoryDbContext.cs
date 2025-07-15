@@ -1,9 +1,9 @@
 using System.Data;
-using WebApiMedWaytor.Domain;
-using WebApiMedWaytor.Domain.Abstraction;
-using WebApiMedWaytor.Extentions;
+using WebApiMedWaytoR.Domain;
+using WebApiMedWaytoR.Domain.Abstraction;
+using WebApiMedWaytoR.Extentions;
 
-namespace WebApiMedWaytor.Infrastructure;
+namespace WebApiMedWaytoR.Infrastructure;
 
 public class InMemoryDbContext
 {

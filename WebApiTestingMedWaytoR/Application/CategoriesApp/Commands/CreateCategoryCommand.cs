@@ -1,7 +1,7 @@
-using WebApiMedWaytor.Application.Abstract;
-using WebApiMedWaytor.Domain;
+using WebApiMedWaytoR.Application.Abstract;
+using WebApiMedWaytoR.Domain;
 
-namespace WebApiMedWaytor.Application.CategoriesApp.Commands;
+namespace WebApiMedWaytoR.Application.CategoriesApp.Commands;
 
 public record CreateCategoryCommand(string Name, string Description) : ICommand<Guid>;
 

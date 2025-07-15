@@ -1,4 +1,4 @@
-namespace WebApiMedWaytor.Extentions;
+namespace WebApiMedWaytoR.Extentions;
 
 public interface ICopy
 {

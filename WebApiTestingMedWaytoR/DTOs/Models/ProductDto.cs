@@ -1,4 +1,4 @@
-namespace WebApiMedWaytor.DTOs;
+namespace WebApiMedWaytoR.DTOs.Models;
 
 public record ProductDto(
     string Id,

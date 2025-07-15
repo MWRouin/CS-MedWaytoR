@@ -3,37 +3,43 @@ using MWR.MedWaytoR.RequestResponse;
 
 namespace MWR.MedWaytoR.RequestResponseImplementation;
 
-public class RequestExecutor<TRequest, TInternalResponse>(
-    IServiceProvider serviceProvider) : IRequestExecutor
-    where TRequest : IRequest<TInternalResponse>
+public class RequestExecutor<TRequest, TResponse>
+    : IRequestExecutor<TResponse>
+    where TRequest : IRequest<TResponse>
 {
-    private async Task<object> InternalExecute(TRequest request, CancellationToken ct = default)
+    public async Task<TResponse> Execute(
+        IRequest<TResponse> request,
+        IServiceProvider serviceProvider,
+        CancellationToken ct = default)
     {
-        var requestHandler = serviceProvider
-            .GetRequiredService<IRequestHandler<TRequest, TInternalResponse>>();
+        if (request is not TRequest typedRequest)
+            throw new ArgumentException(
+                $"Invalid request type. Expected {typeof(TRequest).Name}, got {request?.GetType().Name ?? "null"}",
+                nameof(request));
 
-        var requestResponsePipes = serviceProvider
-            .GetServices<IRequestResponsePipe<TRequest, TInternalResponse>>();
+        var executionPipeLineFunc = BuildExecutionPipeLine(typedRequest, serviceProvider, ct);
 
-        var pipeFunc = () => requestHandler.Handle(request, ct);
-
-        foreach (var pipe in requestResponsePipes) // TODO: check if the order of the pipes is correct
-        {
-            var nextPipe = pipeFunc;
-            pipeFunc = () => pipe.Pipe(request, nextPipe, ct);
-        }
-
-        return (await pipeFunc())!;
+        return await executionPipeLineFunc().ConfigureAwait(false);
     }
 
-    public async Task<TResponse> Execute<TResponse>(IRequest<TResponse> request, CancellationToken ct = default)
+    private static Func<Task<TResponse>> BuildExecutionPipeLine(
+        TRequest request,
+        IServiceProvider serviceProvider,
+        CancellationToken ct)
     {
-        if (request is not TRequest typedRequest) // also checks for TResponse
-        {
-            throw new InvalidOperationException(
-                $"The request type {request.GetType()} is not compatible with the executor type {typeof(TRequest)}.");
-        }
+        if (ct.IsCancellationRequested) return () => Task.FromCanceled<TResponse>(ct);
 
-        return (TResponse)await InternalExecute(typedRequest, ct);
+        var handler = serviceProvider.GetServices<IRequestHandler<TRequest, TResponse>>().Single();
+
+        var pipesEnumerable = serviceProvider.GetServices<IRequestResponsePipe<TRequest, TResponse>>();
+
+        var pipeline = pipesEnumerable.Reverse() // Reverse to wrap in correct order: outer → inner
+            .Aggregate(
+                (Func<Task<TResponse>>)(() => handler.Handle(request, ct)),
+                (next, pipe) => () => ct.IsCancellationRequested
+                    ? Task.FromCanceled<TResponse>(ct)
+                    : pipe.Pipe(request, next, ct));
+
+        return pipeline;
     }
 }

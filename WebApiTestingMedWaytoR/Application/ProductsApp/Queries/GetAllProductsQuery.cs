@@ -1,8 +1,8 @@
-using WebApiMedWaytor.Application.Abstract;
-using WebApiMedWaytor.Domain;
-using WebApiMedWaytor.DTOs;
+using WebApiMedWaytoR.Application.Abstract;
+using WebApiMedWaytoR.Domain;
+using WebApiMedWaytoR.DTOs.Models;
 
-namespace WebApiMedWaytor.Application.ProductsApp.Queries;
+namespace WebApiMedWaytoR.Application.ProductsApp.Queries;
 
 public record GetAllProductsQuery : IQuery<ProductDto[]>;
 

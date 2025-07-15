@@ -1,8 +1,8 @@
 using MWR.MedWaytoR.PubSub;
-using WebApiMedWaytor.Domain;
-using WebApiMedWaytor.Domain.Events;
+using WebApiMedWaytoR.Domain;
+using WebApiMedWaytoR.Domain.Events;
 
-namespace WebApiMedWaytor.Application.ProductsApp.Events;
+namespace WebApiMedWaytoR.Application.ProductsApp.Events;
 
 public class CategoryDeletedEventSubscriber(IProductRepository repository)
     : IEventSubscriber<CategoryDeletedEvent>

@@ -77,41 +77,41 @@ file static class Helpers
     public static Type GetRequestTypeForRequestHandler(Type requestHandlerType)
     {
         return requestHandlerType.GetInterfaces()
-            .First(GenericRequestHandlerType.GenericTypeEqualityPredicate())
+            .First(GenericRequestHandlerType.GenericTypeDefinitionEqualityPredicate())
             .GetGenericArguments()[0];
     }
 
     public static Type GetInterfaceTypeForRequestHandler(Type requestHandlerType)
     {
         return requestHandlerType.GetInterfaces()
-            .First(GenericRequestHandlerType.GenericTypeEqualityPredicate());
+            .First(GenericRequestHandlerType.GenericTypeDefinitionEqualityPredicate());
     }
 
     public static Type GetRequestTypeForReqResPipe(Type requestResponsePipeType)
     {
         return requestResponsePipeType.GetInterfaces()
-            .First(GenericRequestResponsePipeType.GenericTypeEqualityPredicate())
+            .First(GenericRequestResponsePipeType.GenericTypeDefinitionEqualityPredicate())
             .GetGenericArguments()[0];
     }
 
     public static Type GetInterfaceTypeForReqResPipe(Type requestResponsePipeType)
     {
         return requestResponsePipeType.GetInterfaces()
-            .First(GenericRequestResponsePipeType.GenericTypeEqualityPredicate());
+            .First(GenericRequestResponsePipeType.GenericTypeDefinitionEqualityPredicate());
     }
 
     public static Func<Type, bool> IsRequestHandlerPredicate()
     {
         return clsType => clsType.IsPublicConcreteClass() &&
                           clsType.GetInterfaces()
-                              .Any(GenericRequestHandlerType.GenericTypeEqualityPredicate());
+                              .Any(GenericRequestHandlerType.GenericTypeDefinitionEqualityPredicate());
     }
 
     public static Func<Type, bool> IsRequestHandlerPredicate(Type requestType, Type responseType)
     {
         return clsType => clsType.IsPublicConcreteClass() &&
                           clsType.GetInterfaces()
-                              .Any(GenericRequestHandlerType.GenericTypeEqualityPredicate(requestType, responseType));
+                              .Any(GenericRequestHandlerType.GenericTypeDefinitionEqualityPredicate(requestType, responseType));
     }
 
     public static Func<Type, bool> IsReqResPipePredicate()
@@ -119,7 +119,7 @@ file static class Helpers
         return clsType =>
             clsType.IsPublicConcreteClass() &&
             clsType.GetInterfaces()
-                .Any(GenericRequestResponsePipeType.GenericTypeEqualityPredicate());
+                .Any(GenericRequestResponsePipeType.GenericTypeDefinitionEqualityPredicate());
     }
 
     public static Func<Type, bool> IsReqResPipePredicate(Type requestType, Type responseType)
@@ -127,6 +127,6 @@ file static class Helpers
         return clsType =>
             clsType.IsPublicConcreteClass() &&
             clsType.GetInterfaces()
-                .Any(GenericRequestResponsePipeType.GenericTypeEqualityPredicate(requestType, responseType));
+                .Any(GenericRequestResponsePipeType.GenericTypeDefinitionEqualityPredicate(requestType, responseType));
     }
 }

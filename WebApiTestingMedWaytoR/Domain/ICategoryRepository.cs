@@ -1,6 +1,6 @@
-using WebApiMedWaytor.Domain.Abstraction;
+using WebApiMedWaytoR.Domain.Abstraction;
 
-namespace WebApiMedWaytor.Domain;
+namespace WebApiMedWaytoR.Domain;
 
 public interface ICategoryRepository : IRepository<Category>
 {

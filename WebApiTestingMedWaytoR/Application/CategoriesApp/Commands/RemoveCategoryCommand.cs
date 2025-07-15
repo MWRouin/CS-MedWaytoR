@@ -1,8 +1,8 @@
-using WebApiMedWaytor.Application.Abstract;
-using WebApiMedWaytor.Domain;
-using WebApiMedWaytor.DTOs;
+using WebApiMedWaytoR.Application.Abstract;
+using WebApiMedWaytoR.Domain;
+using WebApiMedWaytoR.DTOs.Models;
 
-namespace WebApiMedWaytor.Application.CategoriesApp.Commands;
+namespace WebApiMedWaytoR.Application.CategoriesApp.Commands;
 
 public record RemoveCategoryCommand(Guid CategoryId) : ICommand<CategoryDto>;
 

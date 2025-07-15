@@ -1,6 +1,6 @@
-using WebApiMedWaytor.Domain.Abstraction;
+using WebApiMedWaytoR.Domain.Abstraction;
 
-namespace WebApiMedWaytor.Domain.Events;
+namespace WebApiMedWaytoR.Domain.Events;
 
 public record ProductModifiedPrice(
     decimal OldPrice,

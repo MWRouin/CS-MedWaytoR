@@ -1,6 +1,6 @@
-using WebApiMedWaytor.Domain.Abstraction;
+using WebApiMedWaytoR.Domain.Abstraction;
 
-namespace WebApiMedWaytor.Infrastructure;
+namespace WebApiMedWaytoR.Infrastructure;
 
 public class GenericRepository<T>(InMemoryDbContext dbContext)
     : IRepository<T> where T : class, IEntity

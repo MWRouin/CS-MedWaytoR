@@ -1,43 +1,42 @@
 using System.Collections.Concurrent;
+using MWR.MedWaytoR.Config;
 using MWR.MedWaytoR.PubSub;
 
 namespace MWR.MedWaytoR.PubSubImplementation;
 
-internal class ConcreteEventPublisher : IEventPublisher
+internal class ConcreteEventPublisher(IServiceProvider sp, PubSubExecutorFunc executorFunc)
+    : IEventPublisher
 {
-    internal ConcreteEventPublisher(EventExecutorsFactory eventExecutorsFactory)
-    {
-        _eventExecutorsFactory = eventExecutorsFactory;
-    }
+    private static readonly ConcurrentDictionary<Type, IEventExecutor> EventExecutors = [];
 
-    private readonly EventExecutorsFactory _eventExecutorsFactory;
-
-    private readonly ConcurrentDictionary<Type, IEventExecutor> _eventExecutors = [];
-
+    /// <inheritdoc cref="IEventPublisher.PublishAsync(IEvent,System.Threading.CancellationToken)"/>
     public Task PublishAsync(IEvent @event, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(@event);
 
-        return PublishInternalAsync(@event, ct);
+        var executor = GetOrAddExecutor(@event);
+
+        return executor.Execute(@event, sp, executorFunc.ExecuteFunc, ct);
     }
 
+    // supports parallel execution of events switching on MWR.MedWaytoR.PubSubImplementation.ExecutionType
+    /// <inheritdoc cref="IEventPublisher.PublishAsync(System.Collections.Generic.IEnumerable{IEvent},System.Threading.CancellationToken)"/>
     public async Task PublishAsync(IEnumerable<IEvent> events, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(events);
 
         foreach (var @event in events)
         {
-            if (@event == null!) continue;
+            ct.ThrowIfCancellationRequested();
 
-            await PublishInternalAsync(@event, ct);
+            await PublishAsync(@event, ct);
         }
     }
 
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private Task PublishInternalAsync(IEvent @event, CancellationToken ct)
+    private static IEventExecutor GetOrAddExecutor(IEvent @event)
     {
-        var executor = _eventExecutors.GetOrAdd(@event.GetType(), _eventExecutorsFactory.Create(@event));
+        var eventType = @event.GetType();
 
-        return executor.Execute(@event, ct);
+        return EventExecutors.GetOrAdd(eventType, EventExecutorsFactory.CreateFor);
     }
 }

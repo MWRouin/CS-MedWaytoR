@@ -1,6 +1,6 @@
-using WebApiMedWaytor.Domain;
+using WebApiMedWaytoR.Domain;
 
-namespace WebApiMedWaytor.Infrastructure;
+namespace WebApiMedWaytoR.Infrastructure;
 
 public class CategoryRepository(InMemoryDbContext dbContext)
     : GenericRepository<Category>(dbContext), ICategoryRepository

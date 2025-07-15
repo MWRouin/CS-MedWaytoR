@@ -42,27 +42,27 @@ file static class Helpers
     public static Type GetEventTypeForEventSubscriber(Type eventSubscriber)
     {
         return eventSubscriber.GetInterfaces()
-            .First(EventSubscriberType.GenericTypeEqualityPredicate())
+            .First(EventSubscriberType.GenericTypeDefinitionEqualityPredicate())
             .GetGenericArguments()[0];
     }
 
     public static Type GetInterfaceTypeForEventSubscriber(Type eventSubscriber)
     {
         return eventSubscriber.GetInterfaces()
-            .First(EventSubscriberType.GenericTypeEqualityPredicate());
+            .First(EventSubscriberType.GenericTypeDefinitionEqualityPredicate());
     }
 
     public static Func<Type, bool> IsEventSubscriberPredicate()
     {
         return classType => classType.IsPublicConcreteClass()
                             && classType.GetInterfaces()
-                                .Any(EventSubscriberType.GenericTypeEqualityPredicate());
+                                .Any(EventSubscriberType.GenericTypeDefinitionEqualityPredicate());
     }
 
     public static Func<Type, bool> IsEventSubscriberPredicate(Type evenType)
     {
         return classType => classType.IsPublicConcreteClass()
                             && classType.GetInterfaces()
-                                .Any(EventSubscriberType.GenericTypeEqualityPredicate(evenType));
+                                .Any(EventSubscriberType.GenericTypeDefinitionEqualityPredicate(evenType));
     }
 }

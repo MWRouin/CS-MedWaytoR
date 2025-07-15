@@ -1,7 +1,7 @@
-using WebApiMedWaytor.Application.Abstract;
-using WebApiMedWaytor.Domain;
+using WebApiMedWaytoR.Application.Abstract;
+using WebApiMedWaytoR.Domain;
 
-namespace WebApiMedWaytor.Application.ProductsApp.Commands;
+namespace WebApiMedWaytoR.Application.ProductsApp.Commands;
 
 public record RemoveProductCommand(Guid ProductId) : ICommand<Guid>;
 

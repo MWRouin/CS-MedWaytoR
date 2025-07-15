@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MWR.MedWaytoR.RequestResponse;
-using WebApiMedWaytor.Application.CategoriesApp.Commands;
-using WebApiMedWaytor.Application.CategoriesApp.Queries;
-using WebApiMedWaytor.DTOs;
-using WebApiMedWaytor.DTOs.Commands;
+using WebApiMedWaytoR.Application.CategoriesApp.Commands;
+using WebApiMedWaytoR.Application.CategoriesApp.Queries;
+using WebApiMedWaytoR.DTOs.Commands;
 
 namespace WebApiMedWaytoR.Controllers;
 

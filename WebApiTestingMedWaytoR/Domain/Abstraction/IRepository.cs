@@ -1,4 +1,4 @@
-namespace WebApiMedWaytor.Domain.Abstraction;
+namespace WebApiMedWaytoR.Domain.Abstraction;
 
 public interface IRepository<T> where T : class, IEntity
 {

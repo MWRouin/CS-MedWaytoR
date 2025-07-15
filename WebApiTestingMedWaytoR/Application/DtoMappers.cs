@@ -1,8 +1,8 @@
 using System.Globalization;
-using WebApiMedWaytor.Domain;
-using WebApiMedWaytor.DTOs;
+using WebApiMedWaytoR.Domain;
+using WebApiMedWaytoR.DTOs.Models;
 
-namespace WebApiMedWaytor.Application;
+namespace WebApiMedWaytoR.Application;
 
 public static class DtoMappers
 {

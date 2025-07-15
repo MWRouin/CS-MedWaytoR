@@ -6,7 +6,7 @@ namespace MWR.MedWaytoR.PubSub;
 public interface IEventPublisher
 {
     /// <summary>
-    /// Execute the appropriate event subscribers for an event
+    /// Executes the event-subscribers that are subscribed to the type of the event
     /// </summary>
     /// <param name="event">Event object</param>
     /// <param name="ct">Optional cancellation token</param>
@@ -14,7 +14,7 @@ public interface IEventPublisher
     Task PublishAsync(IEvent @event, CancellationToken ct = default);
 
     /// <summary>
-    /// Execute the appropriate event subscribers' handler for the events
+    /// Foreach event execute the event-subscribers that are subscribed to the type of the event
     /// </summary>
     /// <param name="events">Enumerable of events</param>
     /// <param name="ct">Optional cancellation token</param>

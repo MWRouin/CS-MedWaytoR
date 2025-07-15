@@ -45,19 +45,10 @@ public static class RequestResponseDi
             services.AddServices(pipesGroup.Key, pipesGroup.Value, lifetime);
         }
 
-        // TODO make singleton and fix appropriate service provider use
-        services.AddScoped(Helpers.CreateConcreteRequestDispatcher);
+        services.AddScoped<IRequestDispatcher, ConcreteRequestDispatcher>();
 
         Console.WriteLine("AddMedWayToR_RequestResponse ==> End");
 
         return services;
-    }
-}
-
-file static class Helpers
-{
-    public static IRequestDispatcher CreateConcreteRequestDispatcher(IServiceProvider provider)
-    {
-        return new ConcreteRequestDispatcher(new RequestExecutorsFactory(provider));
     }
 }

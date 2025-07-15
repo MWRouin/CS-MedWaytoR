@@ -1,8 +1,8 @@
 using MWR.MedWaytoR.PubSub;
-using WebApiMedWaytor.Domain;
-using WebApiMedWaytor.Domain.Events;
+using WebApiMedWaytoR.Domain;
+using WebApiMedWaytoR.Domain.Events;
 
-namespace WebApiMedWaytor.Application.CategoriesApp.Events;
+namespace WebApiMedWaytoR.Application.CategoriesApp.Events;
 
 public class ProductCreatedEventSubscriber(ICategoryRepository repository)
     : IEventSubscriber<ProductCreatedEvent>

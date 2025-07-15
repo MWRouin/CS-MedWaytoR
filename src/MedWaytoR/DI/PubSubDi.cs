@@ -1,5 +1,5 @@
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using MWR.MedWaytoR.Config;
 using MWR.MedWaytoR.PubSub;
 using MWR.MedWaytoR.PubSubImplementation;
 
@@ -8,31 +8,24 @@ namespace MWR.MedWaytoR.DI;
 public static class PubSubDi
 {
     public static IServiceCollection AddMedWayToR_PubSub(this IServiceCollection services,
-        ServiceLifetime lifetime = ServiceLifetime.Scoped)
+        Func<PubSubConfig> configFactory)
     {
-        return AddMedWayToR_PubSub(services, [Assembly.GetCallingAssembly()], lifetime);
+        return AddMedWayToR_PubSub(services, configFactory.Invoke());
     }
 
     public static IServiceCollection AddMedWayToR_PubSub(this IServiceCollection services,
-        IEnumerable<Assembly> assemblies,
-        ServiceLifetime lifetime = ServiceLifetime.Scoped)
+        PubSubConfig? config = null)
     {
-        var scanner = new PubSubScanner(assemblies);
+        config ??= PubSubConfig.Default;
 
-        Console.WriteLine($"AddMedWayToR_PubSub ==> {lifetime.ToString()}");
+        var scanner = new PubSubScanner(config.Assemblies);
 
-        var eventSubscribersDictionary = scanner.FindAllSubscribersGroubedBySubscriberInerfaceType().ToDictionary();
+        Console.WriteLine($"AddMedWayToR_PubSub ==> {config.ServicesLifetime.ToString()}");
 
-        foreach (var subscribersGroup in eventSubscribersDictionary)
-        {
-            Console.WriteLine($"Subscribers: {subscribersGroup.Key} : {string.Join(", ", subscribersGroup.Value)}");
-            services.AddServices(subscribersGroup.Key, subscribersGroup.Value, lifetime);
-        }
-
-        // TODO make singleton and fix appropriate service provider use
-        services.AddScoped(Helpers.CreateConcreteEventPublisher);
-
-        Console.WriteLine("AddMedWayToR_PubSub ==> End");
+        scanner.FindAllSubscribersGroubedBySubscriberInerfaceType()
+            .Aggregate(services, Helpers.AggregateAddServicesFunc(config))
+            .AddSingleton(PubSubExecutorFunc.CreateFrom(config))
+            .AddService<IEventPublisher, ConcreteEventPublisher>(config.ServicesLifetime);
 
         return services;
     }
@@ -40,8 +33,16 @@ public static class PubSubDi
 
 file static class Helpers
 {
-    public static IEventPublisher CreateConcreteEventPublisher(IServiceProvider provider)
+    public static Func<IServiceCollection, KeyValuePair<Type, IEnumerable<Type>>, IServiceCollection>
+        AggregateAddServicesFunc(PubSubConfig config)
     {
-        return new ConcreteEventPublisher(new EventExecutorsFactory(provider));
+        return (serviceCollection, group) =>
+        {
+            Console.WriteLine($"Subscribers: {group.Key} : {string.Join(", ", group.Value)}");
+
+            serviceCollection.AddServices(group.Key, group.Value, config.ServicesLifetime);
+
+            return serviceCollection;
+        };
     }
 }

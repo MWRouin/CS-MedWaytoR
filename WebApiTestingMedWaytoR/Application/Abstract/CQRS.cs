@@ -1,6 +1,6 @@
 using MWR.MedWaytoR.RequestResponse;
 
-namespace WebApiMedWaytor.Application.Abstract;
+namespace WebApiMedWaytoR.Application.Abstract;
 
 public interface IQuery<out T> : IRequest<T>;
 

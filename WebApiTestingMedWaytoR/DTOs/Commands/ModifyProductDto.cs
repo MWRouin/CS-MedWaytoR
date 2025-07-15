@@ -1,4 +1,4 @@
-namespace WebApiMedWaytor.DTOs.Commands;
+namespace WebApiMedWaytoR.DTOs.Commands;
 
 public record ModifyProductDto(
     string? Category,
